@@ -203,24 +203,10 @@ class Air_Case_Handler(AirtestCase):
 
 
 if __name__ == "__main__":
-    # for device in devices:
-    #     logger.info('------- 设备[%s]开始执行 -------' % device)
-    #     test = Air_Case_Handler(device)
-    #     test.run_air(air_path, device)
-    #     logger.info('------- 设备[%s]结束执行 -------' % device)
-
-    # 定义线程任务
-    def run_air_thread(device):
+    for device in devices:
+        logger.info('------- 设备[%s]开始执行 -------' % device)
         test = Air_Case_Handler(device)
         test.run_air(air_path, device)
+        logger.info('------- 设备[%s]结束执行 -------' % device)
 
 
-    import multiprocessing
-
-    devices = ['android:///192.168.111.25:5556', 'android:///192.168.111.74:5556']
-
-    # 创建进程池并执行任务
-    pool = multiprocessing.Pool(processes=len(devices))
-    pool.map(run_air_thread, devices)
-    pool.close()
-    pool.join()
