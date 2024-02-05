@@ -208,5 +208,4 @@ if __name__ == "__main__":
         test = Air_Case_Handler(device)
         test.run_air(air_path, device)
         logger.info('------- 设备[%s]结束执行 -------' % device)
-        print(1)
 
