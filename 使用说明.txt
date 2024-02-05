@@ -20,3 +20,6 @@ check_install_local_package，该方法会去校验本地包，find_package方�
 6. run_script开始执行用例
 7. 集成所有log并且生成一个report文件。
 
+
+附加功能：
+darkAndlight 检测亮度峰值 判断颜色改变
