@@ -12,6 +12,7 @@ from airtest.report.report import LogToHtml
 from airtest.cli.runner import AirtestCase, run_script
 
 from util.package_check import find_package
+from util.send_email import EmailSender
 from util.util import air_device_dir,get_andriod_permissions
 from log.log import logger
 from airtest.core.api import *
@@ -126,7 +127,7 @@ class Air_Case_Handler(AirtestCase):
         output_file = os.path.join(root_path, "report", report_name)
         with open(output_file, 'w', encoding="utf-8") as f:
             f.write(html)
-
+        EmailSender('执行成功通知', '总计数量：{}，成功：{}，失败：{}' .format(len(results), success, fail)).send_email()
     # airtest日志和报告清理
     def log_report_file_exist(self, log_path):
         root_log = log_path
