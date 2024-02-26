@@ -74,7 +74,15 @@ def air_device_dir(device, air_dir):
     if 'android' in device:
         air_dir = os.path.join(air_dir, 'andriod')
         return air_dir, 'android'
-    print(air_dir, '888888')
+    elif 'iOS' in device:
+        air_dir = os.path.join(air_dir, 'ios')
+        return air_dir, 'iOS'
+
+def define_device_type(dev_id):
+    if 'android' in dev_id:
+        return 'android'
+    elif 'iOS' in dev_id:
+        return 'iOS'
 
 # 输入opt
 def enter_opt_page():

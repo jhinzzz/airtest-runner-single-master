@@ -5,9 +5,10 @@ from airtest.core.settings import Settings as ST
 # 测试环境 SIT/UAT
 env = 'UAT'
 # 设备信息，只有当deviceType为app是有效
-devices = ['android:///192.168.111.25:5556', 'android:///192.168.111.74:5556']
+devices = ['iOS:///http+usbmux://82c0cf7701ed8e3e53e51e23450ff6187ec5b354:8100']
 # app名称
-package_name = 'cn.swiftpass.wallet.tiqmo'
+andriod_package_name = 'cn.swiftpass.wallet.tiqmo'
+ios_package_name = 'com.tiqmo.wallet.ksa.uat'
 # download_url
 download_url = "https://hw.hstytest.com/tiqmo/appdownload/tiqmo_wallet/uat/aos/download.html?/home/kite_wft/apphome/saasWallyt2/appDownload/tiqmo_wallet/qrInfo.txt"
 # app版本号

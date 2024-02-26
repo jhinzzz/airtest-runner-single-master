@@ -3,7 +3,7 @@ from email.message import EmailMessage
 
 # 配置邮箱账户及密码
 sender = '470731804@qq.com'
-password = ''
+password = 'dioreqilqpwsbjae'
 receiver = '470731804@qq.com'
 
 

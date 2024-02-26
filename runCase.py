@@ -11,11 +11,13 @@ from conf.settings import *
 from airtest.report.report import LogToHtml
 from airtest.cli.runner import AirtestCase, run_script
 
-from util.package_check import find_package
+from util.package_check import find_package, analyze_ipa_with_plistlib
 from util.send_email import EmailSender
-from util.util import air_device_dir,get_andriod_permissions
+from util.subp import *
+from util.util import air_device_dir, get_andriod_permissions, define_device_type
 from log.log import logger
 from airtest.core.api import *
+import subprocess
 
 class Air_Case_Handler(AirtestCase):
     def __init__(self, dev_id):
@@ -40,10 +42,13 @@ class Air_Case_Handler(AirtestCase):
         start_time_fmt = start_time.strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
         results = []  # {name:项目名，result:运行结果True/False}
         root_log = log_path
-        device_name = str(re.search(r'///(.+):', device).group(1))
+        if device_type == "andriod":
+            device_name = str(re.search(r'///(.+):', device).group(1))
+        elif device_type == 'iOS':
+            device_name = str(re.search(r"http\+usbmux://([\w]+):\d+", device).group(1))
         self.log_report_file_exist(log_path)
         air_files = os.listdir(air_dir)
-        logger.info('------- Start Testing %s  -------' % device_type)
+        logger.info('------- Start Testing %s  -------' % device_name)
         # 读取执行用例文件并执行用例
         for file in air_files:
             # 找到air目录下所有后缀是.air的脚本
@@ -70,8 +75,13 @@ class Air_Case_Handler(AirtestCase):
                 else:
                     args = Namespace(device=device, log=air_log, recording=None, script=script,
                                      language="zh")
-                self.clear_dataAndgrant_permissionAndkill_all_service()
+                self.clear_dataAndgrant_permissionAndkill_all_service(device_type)
+                if device_type == 'andriod':
+                    package_name = andriod_package_name
+                elif device_type == 'iOS':
+                    package_name = ios_package_name
                 self.dev.start_app(package_name)
+
                 try:
                     logger.info('------- Total Testing Cases:[%s] Start Case: [%s] -------' % (
                         len(air_files), air_files.index(file) + 1))
@@ -93,7 +103,7 @@ class Air_Case_Handler(AirtestCase):
                     result["result"] = rpt.test_result
                     result["log_air"] = air_log
                     results.append(result)
-                    self.dev.stop_app(package_name)
+                    # self.dev.stop_app(package_name)
                     logger.info('------- End testing %s -------' % device_type)
 
         end_time = datetime.datetime.now()
@@ -151,54 +161,80 @@ class Air_Case_Handler(AirtestCase):
     # 检查是否有安装包，有则判断版本，没有则安装，版本不符合则安装本地包
     def connect_check_package(self, dev_id):
         self.dev = connect_device(dev_id)
-        # 检查是否有安装包
-        try:
-            if self.dev.check_app(package_name):
-                # 检查手机包的版本号
-                app_version = \
-                    self.dev.adb.shell("dumpsys package {} | grep versionName".format(package_name)).split('=')[
-                        1].strip()
-                if app_version == version_code:
-                    logger.info('版本号检查通过current version:{}'.format(version_code))
-                else:
-                    logger.info('手机测试包不合格，卸载当前app并安装本地包')
-                    self.dev.uninstall_app(package_name)
-                    self.check_install_local_package()
-        # 没有则安装
-        except:
-            logger.info('手机未安装测试包，检查本地包是否符合要求')
-            self.check_install_local_package()
-        try:
-            if self.dev.check_app('com.netease.nie.yosemite'):
-                pass
-        except:
-            logger.info('yosemite apk不存在')
-            yosemite_package_loc = find_package('related_app', 'apk')
-            self.dev.install_app(filepath=yosemite_package_loc,install_options=['-t','-d','-g'])
-    # 检查本地包是否符合版本，符合则安装，不符合退出
-    def check_install_local_package(self):
-        andriod_package_loc = find_package('app_package','apk')
-        apk_version = APK(andriod_package_loc).androidversion_name
-        # 准备安装本地包，检查本地包版本
-        if apk_version == version_code:
-            logger.info('本地包版本号检查通过 {}'.format(apk_version))
-            self.dev.install_app(filepath=andriod_package_loc,install_options=['-t','-d','-g'])
-        else:
-            logger.info('本地包版本号检查不通过，强制退出运行，请更新安装包版本:{}，现测试版本号：{}'.format(apk_version,
-                                                                                                         version_code))
-            raise SystemExit
-
-    def clear_dataAndgrant_permissionAndkill_all_service(self):
-        # 清理app数据，保持全新安装状态
-        self.dev.adb.shell('pm clear {}'.format(package_name))
-        # 清理安卓后台应用
-        self.dev.adb.shell('am kill-all')
-        permissions_list = get_andriod_permissions()
-        for permission in permissions_list:
+        device_type = define_device_type(dev_id)
+        if device_type == 'andriod':
+            # 检查是否有安装包
             try:
-                self.dev.adb.shell('pm grant {} android.permission.{}'.format(package_name, permission))
+                if self.dev.check_app(andriod_package_name):
+                    # 检查手机包的版本号
+                    app_version = \
+                        self.dev.adb.shell("dumpsys package {} | grep versionName".format(andriod_package_name)).split('=')[
+                            1].strip()
+                    if app_version == version_code:
+                        logger.info('版本号检查通过current version:{}'.format(version_code))
+                    else:
+                        logger.info('手机测试包不合格，卸载当前app并安装本地包')
+                        self.dev.uninstall_app(andriod_package_name)
+                        self.check_install_local_package(device_type)
+            # 没有则安装
             except:
-                pass
+                logger.info('手机未安装测试包，检查本地包是否符合要求')
+                self.check_install_local_package(device_type)
+            try:
+                if self.dev.check_app('com.netease.nie.yosemite'):
+                    pass
+            except:
+                logger.info('yosemite apk不存在')
+                yosemite_package_loc = find_package('related_app', 'apk')
+                self.dev.install_app(filepath=yosemite_package_loc,install_options=['-t','-d','-g'])
+        elif device_type == 'iOS':
+            app_version = output_app_version()
+            if app_version == version_code:
+                logger.info('版本号检查通过current version:{}'.format(version_code))
+            else:
+                logger.info('手机测试包不合格，卸载当前app并安装本地包')
+                ios_uninstall(ios_package_name)
+                self.check_install_local_package(device_type)
+
+
+    # 检查本地包是否符合版本，符合则安装，不符合退出
+    def check_install_local_package(self,device_type):
+        if device_type == 'andriod':
+            andriod_package_loc = find_package('app_package','apk')
+            apk_version = APK(andriod_package_loc).androidversion_name
+            # 准备安装本地包，检查本地包版本
+            if apk_version == version_code:
+                logger.info('本地包版本号检查通过 {}'.format(apk_version))
+                self.dev.install_app(filepath=andriod_package_loc,install_options=['-t','-d','-g'])
+            else:
+                logger.info('本地包版本号检查不通过，强制退出运行，请更新安装包版本:{}，现测试版本号：{}'.format(apk_version,
+                                                                                                             version_code))
+                raise SystemExit
+        elif device_type == 'iOS':
+            ios_package_loc = find_package('app_package','ipa')
+            ipa_version = analyze_ipa_with_plistlib(ios_package_loc)
+            if ipa_version == version_code:
+                logger.info('本地包版本号检查通过 {}'.format(ipa_version))
+                ios_install(ios_package_loc)
+            else:
+                logger.info('本地包版本号检查不通过，强制退出运行，请更新安装包版本:{}，现测试版本号：{}'.format(ipa_version,
+                                                                                                             version_code))
+                raise SystemExit
+
+    def clear_dataAndgrant_permissionAndkill_all_service(self, device_type):
+        if device_type == 'andriod':
+            # 清理app数据，保持全新安装状态
+            self.dev.adb.shell('pm clear {}'.format(andriod_package_name))
+            # 清理安卓后台应用
+            self.dev.adb.shell('am kill-all')
+            permissions_list = get_andriod_permissions()
+            for permission in permissions_list:
+                try:
+                    self.dev.adb.shell('pm grant {} android.permission.{}'.format(andriod_package_name, permission))
+                except:
+                    pass
+        else:
+            pass
 
 
 
