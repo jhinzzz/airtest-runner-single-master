@@ -7,7 +7,7 @@
 7、data.ini文件区分了UAT和SIT环境的账号密码，也包含了安卓授权权限名。
 注意：我这里用的airtest是1.2.3 如果老版本的话不保证能运行成功
 
-运行思路：（目前ios的wda还没打包成功，所以暂时只适用于andriod设备）
+运行思路：
 0. connect_check_package进行设备链接，判断是否已安装包，如果有的话会校验版本号，如果没有安装包或者版本号不匹配调用方法
 check_install_local_package，该方法会去校验本地包，find_package方法会传入安装包的文件名，然后判断本地包版本是否与预期版本号一直，如果不一致，直接退出运行，
 如果一致，则安装包
@@ -15,7 +15,7 @@ check_install_local_package，该方法会去校验本地包，find_package方�
 2. log_report_file_exist判断是否需要清理report和air log（用例执行的log）
 3. 读取到用例文件后，进行循环遍历跑脚本
 4. clear_dataAndgrant_permissionAndkill_all_service 由于项目设计登录很麻烦，这个方法
-可以让我们先去清理app缓存，保持app缓存为新安装app，然后再去默认授权，并且也会清理所有设备后台运行的程序，确保设备的流畅
+可以让我们先去清理app缓存，保持app缓存为新安装app，然后再去默认授权，并且也会清理所有设备后台运行的程序，确保设备的流畅（只适用于安卓设备）
 5. start_app 启动app
 6. run_script开始执行用例
 7. 集成所有log并且生成一个report文件。
@@ -23,3 +23,7 @@ check_install_local_package，该方法会去校验本地包，find_package方�
 
 附加功能：
 darkAndlight 检测亮度峰值 判断颜色改变
+
+额外说明：
+ios需要先安装tidevice和webdriveragent（facebook）可以让ios开发打一下 （https://airtest.doc.io.netease.com/IDEdocs/device_connection/4_ios_connection/）
+我自己打了一个但是目前部分机型装不上放在app_package文件里
