@@ -14,7 +14,7 @@ from airtest.cli.runner import AirtestCase, run_script
 from util.package_check import find_package, analyze_ipa_with_plistlib
 from util.send_email import EmailSender
 from util.subp import *
-from util.util import air_device_dir, get_andriod_permissions, define_device_type
+from util.util import air_device_dir, get_andriod_permissions, define_device_type, findDeviceName
 from log.log import logger
 from airtest.core.api import *
 import subprocess
@@ -45,7 +45,7 @@ class Air_Case_Handler(AirtestCase):
         if device_type == "andriod":
             device_name = str(re.search(r'///(.+):', device).group(1))
         elif device_type == 'iOS':
-            device_name = str(re.search(r"http\+usbmux://([\w]+):\d+", device).group(1))
+            device_name = findDeviceName(device)
         self.log_report_file_exist(log_path)
         air_files = os.listdir(air_dir)
         logger.info('------- Start Testing %s  -------' % device_name)
@@ -138,6 +138,7 @@ class Air_Case_Handler(AirtestCase):
         with open(output_file, 'w', encoding="utf-8") as f:
             f.write(html)
         EmailSender('执行结束通知', '总计数量：{}，成功：{}，失败：{}' .format(len(results), success, fail)).send_email()
+
     # airtest日志和报告清理
     def log_report_file_exist(self, log_path):
         root_log = log_path
@@ -224,6 +225,11 @@ class Air_Case_Handler(AirtestCase):
                 raise SystemExit
 
     def clear_dataAndgrant_permissionAndkill_all_service(self, device_type):
+        """
+        安卓清理app缓存，并赋予授权。
+        :param device_type:
+        :return:
+        """
         if device_type == 'andriod':
             # 清理app数据，保持全新安装状态
             self.dev.adb.shell('pm clear {}'.format(andriod_package_name))

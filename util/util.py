@@ -84,6 +84,11 @@ def define_device_type(dev_id):
     elif 'iOS' in dev_id:
         return 'iOS'
 
+def findDeviceName(str):
+    first_slash_index = str.rfind("//")  # 从右到左查询第一个 "//" 的索引
+    first_colon_index = str.rfind(":")  # 从右到左查询第一个 ":" 的索引
+    return str[first_slash_index+2:first_colon_index]
+
 # 输入opt
 def enter_opt_page():
     from poco.drivers.android.uiautomation import AndroidUiautomationPoco

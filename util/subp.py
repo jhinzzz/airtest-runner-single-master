@@ -55,7 +55,7 @@ def connect_wda():
     # 调用批处理文件
     subprocess.Popen("start_wda.bat", shell=True,
                      creationflags=subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP)
-    time.sleep(5)
+    time.sleep(8)
 
 def output_app_version():
     app_list = command('tidevice applist')
