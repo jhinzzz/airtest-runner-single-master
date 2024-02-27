@@ -12,7 +12,7 @@ ios_package_name = 'com.tiqmo.wallet.ksa.uat'
 # download_url
 download_url = "https://hw.hstytest.com/tiqmo/appdownload/tiqmo_wallet/uat/aos/download.html?/home/kite_wft/apphome/saasWallyt2/appDownload/tiqmo_wallet/qrInfo.txt"
 # app版本号
-version_code = '2.1.0'
+version_code = '2.2.0'
 # 设备类别：app、win和web
 deviceType = "app"
 # 测试报告模板名称

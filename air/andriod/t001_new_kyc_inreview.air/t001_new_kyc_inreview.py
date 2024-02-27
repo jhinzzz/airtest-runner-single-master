@@ -1,0 +1,82 @@
+# -*- encoding=utf8 -*-
+__author__ = "zhexin.xiao"
+
+from airtest.core.api import *
+from util.util import get_registered_numberAndid, update_kyced_numberAndid, enter_opt_page
+from util.check_darkAndlight import darkAndlight
+from poco.drivers.android.uiautomation import AndroidUiautomationPoco
+poco = AndroidUiautomationPoco(use_airtest_input=True, screenshot_each_action=False)
+auto_setup(__file__)
+wait(Template(r"tpl1706084021251.png", record_pos=(-0.002, 0.012), resolution=(1080, 2340)))
+touch(Template(r"tpl1706084026734.png", record_pos=(0.003, 0.271), resolution=(1080, 2340)))
+wait(Template(r"tpl1706068385372.png", record_pos=(0.374, -0.831), resolution=(1080, 2340)))
+touch(Template(r"tpl1706068385372.png", record_pos=(0.374, -0.831), resolution=(1080, 2340)))
+wait(Template(r"tpl1706604561687.png", record_pos=(-0.208, -0.659), resolution=(1080, 2340)))
+touch(Template(r"tpl1706084034892.png", record_pos=(0.14, -0.352), resolution=(1080, 2340)))
+number,id = get_registered_numberAndid()
+text(number)
+wait(Template(r"tpl1706084079254.png", rgb=True, record_pos=(-0.004, 0.081), resolution=(1080, 2340)))
+touch(Template(r"tpl1706084100412.png", record_pos=(-0.004, 0.081), resolution=(1080, 2340)))
+wait(Template(r"tpl1706605432331.png", record_pos=(-0.247, -0.675), resolution=(1080, 2340)))
+enter_opt_page()
+wait(Template(r"tpl1706084178993.png", record_pos=(-0.008, -0.133), resolution=(1080, 2340)))
+touch(Template(r"tpl1706084195455.png", record_pos=(-0.262, 0.018), resolution=(1080, 2340)))
+touch(Template(r"tpl1706084197370.png", record_pos=(-0.256, 0.218), resolution=(1080, 2340)))
+touch(Template(r"tpl1706084198661.png", record_pos=(-0.262, 0.391), resolution=(1080, 2340)))
+touch(Template(r"tpl1706084199950.png", record_pos=(0.007, 0.008), resolution=(1080, 2340)))
+touch(Template(r"tpl1706084201080.png", record_pos=(0.004, 0.208), resolution=(1080, 2340)))
+touch(Template(r"tpl1706084202136.png", record_pos=(0.001, 0.397), resolution=(1080, 2340)))
+sleep(3)
+wait(Template(r"tpl1706605681731.png", record_pos=(-0.045, -0.852), resolution=(1080, 2340)))
+touch(Template(r"tpl1706084236580.png", record_pos=(-0.002, -0.502), resolution=(1080, 2340)))
+wait(Template(r"tpl1706084526755.png", record_pos=(-0.17, -0.897), resolution=(1080, 2340)))
+touch(Template(r"tpl1706084257846.png", record_pos=(-0.28, -0.506), resolution=(1080, 2340)))
+wait(Template(r"tpl1706084277934.png", record_pos=(0.013, 0.24), resolution=(1080, 2340)))
+touch(Template(r"tpl1706084284411.png", record_pos=(-0.025, -0.031), resolution=(1080, 2340)))
+wait(Template(r"tpl1706084526755.png", record_pos=(-0.17, -0.897), resolution=(1080, 2340)))
+touch(Template(r"tpl1706084310531.png", record_pos=(0.08, -0.509), resolution=(1080, 2340)))
+wait(Template(r"tpl1706084342441.png", record_pos=(-0.001, 0.225), resolution=(1080, 2340)))
+touch(Template(r"tpl1706084354625.png", record_pos=(-0.019, -0.029), resolution=(1080, 2340)))
+wait(Template(r"tpl1706084526755.png", record_pos=(-0.17, -0.897), resolution=(1080, 2340)))
+touch(Template(r"tpl1706084372697.png", record_pos=(-0.299, -0.286), resolution=(1080, 2340)))
+text("26 zhongkedasha,Nanshan")
+text("Test Engineer")
+touch(Template(r"tpl1706084474269.png", record_pos=(-0.15, 0.125), resolution=(1080, 2340)))
+wait(Template(r"tpl1706084484436.png", record_pos=(-0.003, 0.256), resolution=(1080, 2340)))
+touch(Template(r"tpl1706084489571.png", record_pos=(-0.026, -0.135), resolution=(1080, 2340)))
+wait(Template(r"tpl1706084526755.png", record_pos=(-0.17, -0.897), resolution=(1080, 2340)))
+touch(Template(r"tpl1706084570331.png", record_pos=(-0.269, 0.319), resolution=(1080, 2340)))
+wait(Template(r"tpl1706084583160.png", record_pos=(-0.013, 0.156), resolution=(1080, 2340)))
+touch(Template(r"tpl1706084589518.png", record_pos=(-0.023, -0.32), resolution=(1080, 2340)))
+wait(Template(r"tpl1706084526755.png", record_pos=(-0.17, -0.897), resolution=(1080, 2340)))
+touch(Template(r"tpl1706084610796.png", record_pos=(-0.17, 0.519), resolution=(1080, 2340)))
+wait(Template(r"tpl1706084619284.png", record_pos=(-0.018, 0.33), resolution=(1080, 2340)))
+touch(Template(r"tpl1706084628308.png", record_pos=(-0.041, 0.056), resolution=(1080, 2340)))
+wait(Template(r"tpl1706084526755.png", record_pos=(-0.17, -0.897), resolution=(1080, 2340)))
+touch(Template(r"tpl1706084641692.png", record_pos=(-0.214, 0.71), resolution=(1080, 2340)))
+wait(Template(r"tpl1706084655807.png", record_pos=(-0.019, 0.257), resolution=(1080, 2340)))
+touch(Template(r"tpl1706084661396.png", record_pos=(-0.031, -0.127), resolution=(1080, 2340)))
+wait(Template(r"tpl1706084526755.png", record_pos=(-0.17, -0.897), resolution=(1080, 2340)))
+swipe(Template(r"tpl1706084676925.png", record_pos=(-0.017, 0.906), resolution=(1080, 2340)), vector=[-0.0445, -0.8000])
+wait(Template(r"tpl1706084706683.png", record_pos=(-0.053, 0.427), resolution=(1080, 2340)))
+dark = Template(r"tpl1706084723990.png", rgb=True, record_pos=(-0.002, 0.866), resolution=(1080, 2340))
+touch(Template(r"tpl1706084747442.png", record_pos=(-0.298, 0.373), resolution=(1080, 2340)))
+touch(Template(r"tpl1706084747442.png", record_pos=(-0.298, 0.373), resolution=(1080, 2340)))
+light = Template(r"tpl1706084774875.png", rgb=True, record_pos=(-0.001, 0.869), resolution=(1080, 2340))
+result = darkAndlight(light,dark)
+assert_equal(True, result, "Verify Identity 按钮点亮 断言成功.")
+touch(Template(r"tpl1706084795921.png", record_pos=(-0.002, 0.868), resolution=(1080, 2340)))
+wait(Template(r"tpl1706584588225.png", record_pos=(0.006, 0.658), resolution=(1080, 2340)))
+touch(Template(r"tpl1706584594607.png", record_pos=(-0.001, 0.913), resolution=(1080, 2340)))
+sleep(3)
+wait(Template(r"tpl1706695821474.png", record_pos=(-0.006, -0.599), resolution=(1080, 2340)))
+assert_exists(Template(r"tpl1706695843997.png", record_pos=(-0.006, -0.598), resolution=(1080, 2340)), "kyc 提示消失")
+update_kyced_numberAndid(number,id)
+
+
+
+
+
+
+
+

@@ -103,7 +103,7 @@ class Air_Case_Handler(AirtestCase):
                     result["result"] = rpt.test_result
                     result["log_air"] = air_log
                     results.append(result)
-                    # self.dev.stop_app(package_name)
+                    self.dev.stop_app(package_name)
                     logger.info('------- End testing %s -------' % device_type)
 
         end_time = datetime.datetime.now()
@@ -137,7 +137,7 @@ class Air_Case_Handler(AirtestCase):
         output_file = os.path.join(root_path, "report", report_name)
         with open(output_file, 'w', encoding="utf-8") as f:
             f.write(html)
-        EmailSender('执行成功通知', '总计数量：{}，成功：{}，失败：{}' .format(len(results), success, fail)).send_email()
+        EmailSender('执行结束通知', '总计数量：{}，成功：{}，失败：{}' .format(len(results), success, fail)).send_email()
     # airtest日志和报告清理
     def log_report_file_exist(self, log_path):
         root_log = log_path
@@ -160,8 +160,10 @@ class Air_Case_Handler(AirtestCase):
 
     # 检查是否有安装包，有则判断版本，没有则安装，版本不符合则安装本地包
     def connect_check_package(self, dev_id):
-        self.dev = connect_device(dev_id)
         device_type = define_device_type(dev_id)
+        if device_type == 'iOS':
+            connect_wda()
+        self.dev = connect_device(dev_id)
         if device_type == 'andriod':
             # 检查是否有安装包
             try:

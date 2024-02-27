@@ -3,8 +3,8 @@
 3、在项目目录下运行python runCase.py即可运行
 4、在runCase中的run_air包含了查找用例，清理log和report的功能。
 5、实际运行用例命令run_script(args)
-6、暂时未实现替换源码的run_script(args) 所以请先进入源码中把sys.exit(-1)改成raise AssertionError，否则一条用例执行失败后就会退出运行了。
-7、data.ini文件区分了UAT和SIT环境的账号密码，也包含了安卓授权权限名。
+6、暂时未实现替换源码的run_script(args) 所以请先进入run_script(args)源码中把sys.exit(-1)改成raise AssertionError，否则一条用例执行失败后就会退出运行了。
+7、data.ini文件区分了UAT和SIT环境的账号密码，也包含了安卓授权权限名（这个是为了清除缓存并且直接授权，也可以不用这个步骤，让开发打个退出app再次打开就进入到特定页面也可以，我这边的app比较麻烦只能这样设计）。
 注意：我这里用的airtest是1.2.3 如果老版本的话不保证能运行成功
 
 运行思路：
@@ -26,4 +26,7 @@ darkAndlight 检测亮度峰值 判断颜色改变
 
 额外说明：
 ios需要先安装tidevice和webdriveragent（facebook）可以让ios开发打一下 （https://airtest.doc.io.netease.com/IDEdocs/device_connection/4_ios_connection/）
-我自己打了一个但是目前部分机型装不上放在app_package文件里
+我自己打了一个但是目前部分机型装不上有验签问题
+ios的控制需要额外安装tidevice 可以通过pip install tidevice进行安装
+
+安卓最好自己手动安装下adb并且配置环境变量，可以参考https://blog.csdn.net/weixin_37600187/article/details/127987889?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522170900460416800225525595%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=170900460416800225525595&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-127987889-null-null.142^v99^pc_search_result_base8&utm_term=adb%E5%AE%89%E8%A3%85&spm=1018.2226.3001.4187
