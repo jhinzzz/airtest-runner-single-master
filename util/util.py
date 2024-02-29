@@ -55,6 +55,9 @@ def update_kyced_numberAndid(number, id):
     conf_act('set', '{}|kyced_phone|{}'.format(env, number))
     conf_act('set', '{}|kyced_id|{}'.format(env, id))
 
+def get_money_number():
+    number = conf_act('get', '{}|money_phone'.format(env))
+    return number
 
 def get_ref_link():
     value = conf_act('get', '{}|ref_link'.format(env))

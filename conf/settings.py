@@ -18,7 +18,7 @@ deviceType = "app"
 # 测试报告模板名称
 template_name = "summary_template.html"
 # 是否覆盖测试报告,True:运行时会删除之前所有的报告。False：不会删除
-cover_report = True
+cover_report = False
 # 是否覆盖脚本日志,True:运行时会删除之前所有的脚本log记录。False：不会删除
 cover_air_log = True
 # 是否要截图
@@ -40,8 +40,8 @@ report_path = os.path.join(root_path, 'report')
 # 测试数据目录
 data_path = os.path.join(root_path, 'data')
 # airtest 配置(定义airtest库的setting为ST)
-ST.THRESHOLD = 0.70  # 识别阈值
-ST.THRESHOLD_STRICT = 0.99  # 断言阈值
+ST.THRESHOLD = 0.85  # 识别阈值
+ST.THRESHOLD_STRICT = 0.95  # 断言阈值
 ST.OPDELAY = 0.1  # 操作间隔
 ST.FIND_TIMEOUT = 8  # 查找超时 touch, double_click, swipe, wait, assert_exists
 ST.FIND_TIMEOUT_TMP = 3  # swipe,exists,assert_not_exists
