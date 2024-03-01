@@ -5,7 +5,7 @@ from airtest.core.settings import Settings as ST
 # 测试环境 SIT/UAT
 env = 'UAT'
 # 设备信息，只有当deviceType为app是有效
-devices = ['iOS:///http+usbmux://82c0cf7701ed8e3e53e51e23450ff6187ec5b354:8100']
+devices = ['iOS:///http+usbmux://00008101-000961122651003A:8100']
 # app名称
 andriod_package_name = 'cn.swiftpass.wallet.tiqmo'
 ios_package_name = 'com.tiqmo.wallet.ksa.uat'

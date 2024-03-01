@@ -56,5 +56,6 @@ assert_exists(Template(r"tpl1708926624518.png", record_pos=(0.003, -0.603), reso
 touch(Template(r"tpl1708926647129.png", record_pos=(-0.404, -0.764), resolution=(750, 1334)))
 wait(Template(r"tpl1708926669547.png", record_pos=(-0.007, 0.069), resolution=(750, 1334)))
 touch(Template(r"tpl1708926675163.png", record_pos=(0.0, 0.072), resolution=(750, 1334)))
+
 assert_equal(poco("+966{}" .format(number)).get_name(),"+966{}" .format(number) , "number断言.")
 update_registered_numberAndid(number,id)
