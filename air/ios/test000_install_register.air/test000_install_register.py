@@ -59,3 +59,4 @@ touch(Template(r"tpl1708926675163.png", record_pos=(0.0, 0.072), resolution=(750
 
 assert_equal(poco("+966{}" .format(number)).get_name(),"+966{}" .format(number) , "number断言.")
 update_registered_numberAndid(number,id)
+

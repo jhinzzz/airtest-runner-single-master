@@ -35,5 +35,5 @@ def find_package(loc, type):
             raise SystemExit
 
 if __name__ == '__main__':
-    ios_loc = find_package('app_package','ipa')
-    analyze_ipa_with_plistlib(ios_loc)
+    # ios_loc = find_package('app_package','ipa')
+    analyze_ipa_with_plistlib(r"D:\coding_python_proj\airtest-runner-single-master\app_package\ios_Tiqmo-KSA-uat-20240227_1348.ipa")

@@ -6,9 +6,10 @@ from email.mime.multipart import MIMEMultipart
 from email.header import Header
 
 # 配置邮箱账户及密码
-sender = 'xiao_automation_test@outlook.com'
-password = 'Babyshadodo2023'
-receiver = 'xiao_automation_test@outlook.com'
+# outlook
+sender = 'sender email'
+password = 'password'
+receiver = 'receiver email'
 
 
 class EmailSender:

@@ -137,7 +137,8 @@ class Air_Case_Handler(AirtestCase):
         output_file = os.path.join(root_path, "report", report_name)
         with open(output_file, 'w', encoding="utf-8") as f:
             f.write(html)
-        EmailSender('执行结束通知', '总计数量：{}，成功：{}，失败：{}' .format(len(results), success, fail)).send_email()
+        # 发送Email
+        # EmailSender('执行结束通知', '总计数量：{}，成功：{}，失败：{}' .format(len(results), success, fail)).send_email()
 
     # airtest日志和报告清理
     def log_report_file_exist(self, log_path):
@@ -165,6 +166,8 @@ class Air_Case_Handler(AirtestCase):
         if device_type == 'iOS':
             connect_wda()
         self.dev = connect_device(dev_id)
+
+        # 前置校验
         if device_type == 'andriod':
             # 检查是否有安装包
             try:
